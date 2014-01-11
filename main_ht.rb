@@ -56,7 +56,7 @@ while choice != 'q'
     end
 
     shelter.animal_arr << Animal.new(animal_name, animal_gender, animal_species, animal_toy_arr)
-    message = "Added #{shelter.animal_arr.name_str} the #{shelter.animal_arr.species_str}"
+    # message = "Added #{shelter.animal_arr.name_str} the #{shelter.animal_arr.species_str}"
 
   when "2"
     message += 'option 2'
@@ -72,7 +72,7 @@ while choice != 'q'
     print "Client age: "
     client_age = gets.chomp
 
-    print "Number of owned pets:"
+    print "Number of owned pets: "
     pet_count = gets.chomp
 
     shelter.client_arr << Client.new(client_name, children_count, client_age, pet_count)

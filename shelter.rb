@@ -1,5 +1,5 @@
 class Shelter
-  attr_accessor :name_str, :address_str, :animal_arr, :client_arr
+  attr_accessor :shelter_name, :address_str, :animal_arr, :client_arr
 
   # initialize instance variables
   def initialize(shelter_name, address_str, animal_arr = [], client_arr = [])
@@ -29,7 +29,7 @@ class Shelter
       animal_info = "No animals in system.\n"
     else
       animal_info = @animal_arr.inject("") do |animal_info_str, animal|
-        animal_info_str << "{animal.name_str}   Gender: #{animal.gender_str}   Species: #{animal.species_str.capitalize}\n"
+        animal_info_str << "#{animal.name_str}   Gender: #{animal.gender_str}   Species: #{animal.species_str.capitalize}\n"
       end
     end
     return animal_info

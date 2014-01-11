@@ -16,7 +16,7 @@ class Shelter
       client_info = "No clients in system."
     else
       client_info = @client_arr.inject("") do |client_info_str, client|
-        client_info_str << "{client.name_str}   Age: #{client.age_num}   Children: #{client.children_num}   Pets: #{client.pet_num}"
+        client_info_str << "#{client.name_str}   Age: #{client.age_num}   Children: #{client.children_num}   Pets: #{client.pet_num}"
       end
     end
     return client_info

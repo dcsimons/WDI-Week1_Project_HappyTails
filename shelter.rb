@@ -16,7 +16,7 @@ class Shelter
       client_info = "No clients in system.\n"
     else
       client_info = @client_arr.inject("") do |client_info_str, client|
-        client_info_str << "#{client.name_str}   Age: #{client.age_num}   Children: #{client.children_num}   Pets: #{client.pet_num}\n"
+        client_info_str << "#{client.name_str}   Age: #{client.age_num}   Children: #{client.children_num}\n"
       end
     end
     return client_info
@@ -72,9 +72,9 @@ class Shelter
   # Searches the client array for the client name and returns the index position of that client in the client array
   def get_client_index(client_name)
     index_position = 0
-    client_index_position = @client_arr.each do |client|
+    @client_arr.each do |client|
       if client_name == client.name_str
-        client_index_position = @client_arr.index(client)
+        index_position = @client_arr.index(client)
       end
     end
     return index_position
@@ -91,14 +91,16 @@ class Shelter
     @animal_arr.delete_at(index_position)
   end
 
-  # Returns an array containing all available units
-  def get_available_units
-    #implement
-  end
-
-  # Returns an array containing all occupied units
-  def get_rented_units
-    #implement
+  # Returns a string featuring elements of the client object array and any elements in the client pet array
+  def get_client_pets
+    if @client_arr == []
+      client_info = "No clients in system.\n"
+    else
+      client_info = @client_arr.inject("") do |client_info_str, client|
+        client_info_str << "#{client.name_str} pets: #{client.get_pets}\n"
+      end
+    end
+    return client_info    
   end
 
 end

@@ -47,7 +47,7 @@ while choice != 'q'
       if animal_toy_answer == "YES"
         print "Enter toy: "
         animal_toy_arr << gets.chomp
-        print "Does the animal have any more toys? YES or NO"
+        puts "Does the animal have any more toys? YES or NO"
         animal_toy_answer = gets.chomp.upcase
       else
         puts "Invalid choice.  Does the animal have any toys? YES or NO"
@@ -56,7 +56,7 @@ while choice != 'q'
     end
 
     shelter.animal_arr << Animal.new(animal_name, animal_gender, animal_species, animal_toy_arr)
-    message = "Added #{shelter.animal_arr[-1].name_str.capitalize} the #{shelter.animal_arr[-1].species_str.capitalize}"
+    message = "Added #{shelter.animal_arr.last.name_str.capitalize} the #{shelter.animal_arr.last.species_str.capitalize}"
 
   when "2"
     message += 'option 2'
@@ -76,7 +76,7 @@ while choice != 'q'
     pet_count = gets.chomp
 
     shelter.client_arr << Client.new(client_name, children_count, client_age, pet_count)
-    message = "Added #{shelter.client_arr[-1].name_str.capitalize}"
+    message = "Added #{shelter.client_arr.last.name_str.capitalize}"
 
   when "3"
     # Display list of all animals and info
@@ -85,12 +85,51 @@ while choice != 'q'
 
   when "4"
     # Display a list of all clients and info
-    message = "Animal list:\n"
+    message = "Client list:\n"
     message += shelter.get_clients
 
   when "5"
     message += 'option 5'
     # Show total sqft rented
+    print "Name of animal to be adopted: "
+    adopt_animal_name = gets.chomp
+
+    if shelter.animal_available?(adopt_animal_name) # Checks to see if animal exists at the shelter
+      print "Name of client adopting animal: "
+      adopt_client_name = gets.chomp
+
+      if shelter.client_available?(adopt_client_name)
+        print "Animal gender: "
+        adopt_animal_gender = gets.chomp
+
+        print "Animal species: "
+        adopt_animal_species = gets.chomp
+
+        puts "Does the animal have any toys? YES or NO"
+        adopt_animal_toy_answer = gets.chomp.upcase
+        adopt_animal_toy_arr = []
+        until adopt_animal_toy_answer == "NO"
+          if adopt_animal_toy_answer == "YES"
+            print "Enter toy: "
+            adopt_animal_toy_arr << gets.chomp
+            puts "Does the animal have any more toys? YES or NO"
+            adopt_animal_toy_answer = gets.chomp.upcase
+          else
+            puts "Invalid choice.  Does the animal have any toys? YES or NO"
+            adopt_animal_toy_answer = gets.chomp.upcase
+          end
+        end
+
+        shelter.client_arr[shelter.get_client_index(adopt_client_name)].pet_arr << Animal.new(adopt_animal_name, adopt_animal_gender, adopt_animal_species, adopt_animal_toy_arr)
+        shelter.remove_animal(adopt_animal_name)
+        message = "#{shelter.client_arr[shelter.get_client_index(adopt_client_name)].name_str.capitalize} adopted #{shelter.client_arr[shelter.get_client_index(adopt_client_name)].pet_arr.last.name_str.capitalize} the #{shelter.client_arr[shelter.get_client_index(adopt_client_name)].pet_arr.last.species_str.capitalize}."
+      else
+        message = "Client does not exist."
+      end 
+    else
+      message = "Animal does not exist."
+    end
+
   when "6"
     message += 'option 6'
     # Show annual income of building

@@ -18,4 +18,12 @@ class Animal
 
   end
 
+  def animal_available?(animal_name)
+    if animal_name = @name_str
+      true
+    else
+      false
+    end
+  end
+
 end
